@@ -1,9 +1,9 @@
 'use strict';
 
-const Game = require('../modules/Game.class');
+import Game from '../modules/Game.class.js';
+
 const game = new Game();
 
-const field = document.querySelector('.game-field');
 const scoreEl = document.querySelector('.game-score');
 const button = document.querySelector('.button');
 
@@ -48,27 +48,26 @@ document.addEventListener('keydown', (e) => {
 });
 
 function render() {
-  // renderField();?
+  renderField();
   renderScore();
   renderStatus();
 }
 
 function renderField() {
-  field.innerHTML = '';
-
+  const cells = document.querySelectorAll('.field-cell');
   const state = game.getState();
 
-  state.flat().forEach((value) => {
-    const cell = document.createElement('div');
+  cells.forEach((cell, index) => {
+    const row = Math.floor(index / 4);
+    const col = index % 4;
+    const value = state[row][col];
 
+    cell.textContent = value || '';
     cell.className = 'field-cell';
 
     if (value) {
-      cell.textContent = value;
       cell.classList.add(`field-cell--${value}`);
     }
-
-    field.appendChild(cell);
   });
 }
 
