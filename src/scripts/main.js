@@ -53,6 +53,8 @@ function render() {
   renderStatus();
 }
 
+let previousState = null;
+
 function renderField() {
   const cells = document.querySelectorAll('.field-cell');
   const state = game.getState();
@@ -61,14 +63,21 @@ function renderField() {
     const row = Math.floor(index / 4);
     const col = index % 4;
     const value = state[row][col];
+    const prevValue = previousState ? previousState[row][col] : null;
 
     cell.textContent = value || '';
     cell.className = 'field-cell';
 
     if (value) {
       cell.classList.add(`field-cell--${value}`);
+
+      if (value !== prevValue) {
+        cell.classList.add('field-cell--new');
+      }
     }
   });
+
+  previousState = state.map(gameRow => [...gameRow]);
 }
 
 function renderScore() {
