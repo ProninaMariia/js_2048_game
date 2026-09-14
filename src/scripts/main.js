@@ -11,6 +11,8 @@ const startMsg = document.querySelector('.message-start');
 const winMsg = document.querySelector('.message-win');
 const loseMsg = document.querySelector('.message-lose');
 
+let previousState = null;
+
 render();
 
 button.addEventListener('click', () => {
@@ -52,8 +54,6 @@ function render() {
   renderScore();
   renderStatus();
 }
-
-let previousState = null;
 
 function renderField() {
   const cells = document.querySelectorAll('.field-cell');

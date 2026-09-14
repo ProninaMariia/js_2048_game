@@ -75,13 +75,15 @@ class Game {
     const newBoard = transformFn(this.board);
     const changed = !this.boardsEqual(this.board, newBoard);
 
-    if (!changed) {
-      return;
+    if (changed) {
+      this.board = newBoard;
+      this.addRandomTile();
     }
 
-    this.board = newBoard;
-    this.addRandomTile();
+    this.updateStatus();
+  }
 
+  updateStatus() {
     if (this.has2048()) {
       this.status = 'win';
     } else if (!this.hasMoves()) {
